@@ -182,3 +182,129 @@ System.out.println(hyundaiCar.description);
 System.out.println(hyundaiCar.getName());
 hyundaiCar.setname("kia");
 ```
+
+# 메소드
+
+메소드 = method = 클래스 내 함수
+
+입력 값을 함수에 넣고 어떤 출력 값을 기대
+
+입력 -> 함수 -> 출력
+
+### 메소드의 구조
+
+```java
+int sum(int a, int b) {
+    return a + b;
+}
+
+리턴자료형 메소드명(입력자료명1 매개변수1, 입력자료형2 매개변수2, ...) {
+    return 리턴값;
+}
+```
+
+4가지 유형의 메소드
+```java
+// 1. 입력과 출력이 모두 존재하는 메소드
+int sum(int a, int b) {
+    return a + b;
+}
+// 2. 입력과 출력이 모두 존재하지 않는 메소드
+void print() {
+    System.out.println("dddd");
+}
+// 3. 입력만 존재하는 메소드
+void printName(String name) {
+    System.out.println(name);
+} 
+// 4. 출력만 존재하는 메소드
+String getName() {
+    return "name";
+}
+```
+
+### 헷갈리는 용어, 매개 변수와 인수
+매개 변수 = parameters = 메소드에 전달된 입력값을 저장하는 변수
+
+인수 = arguments = 메소드를 호출할 때 전달하는 입력값
+```java
+int sum(int a, int b) { // a 와 b 는 매개 변수
+    return a + b;
+}
+
+sum(1, 2)               // 1 과 2 는 인수
+```
+
+### return 의 활용법
+
+메소드의 결과값을 반환하기 위해 사용하기도 하지만 특정 메소드를 바로 종료하고 싶을 때 사용하기도 함
+```java
+void printName(String name) {
+    if ("danny".equals(name)) {
+        return; // 종료
+    }
+    System.out.println(name);   // danny 가 아닐 때만 프린트
+}
+```
+
+# 인터페이스
+
+### 인터페이스의 구조
+```java
+interface Vehcle {
+    void drive();
+    void addFuel();
+}
+```
+class 키워드 대신 interface 키워드 활용
+메소드의 정의만 해두고 구현체는 존재하지 않음
+
+### 인터페이스 사용하기
+```java
+class Car implements Vehicle {
+    @Override
+    public void drive() {
+        
+    }
+
+    @Override
+    public void addFuel() {
+
+    }
+}
+```
+
+implements 키워드를 사용하여 Car 클래스 생성 가능
+Vehicle 인터페이스에서 정의해둔 2개의 메소드를 Car 클래스에서 구현해야 함
+
+### 인터페이스를 사용하는 이유
+다양한 탈 것을 정의하는 과정
+* 현재 존재하는 탈 것에는 자동차, 마차, 비행기가 존재함
+* 자동차는 핸들을 좌우로 움직이면서 운전함
+* 마차는 말을 통해 운전함
+* 비행기는 오토파일럿 기능을 활용하여 운전함
+
+### 클래스로 구현해 본다면
+```java
+class Car {
+    void drive() {
+        // 핸들 운전
+    }
+}
+
+class Carriage {
+    void drive() {
+        // 말이 운전
+    }
+}
+
+class Airplane {
+    void drive() {
+        // 오토파일럿 운전
+    }
+}
+```
+만약 새로운 탈 것이 계속 추가된다면?
+각 탈것마다 구현해야 하는 메소드가 사전에 정의되어 잇다면?
+이미 10개의 탈 것 클래스가 만들어진 상황에서 새로운 탈것 관련 메소드가 추가되어야 한다면?
+모든 탈것은 동일한 객체로 활용하고 싶다면? 

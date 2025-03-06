@@ -2,11 +2,8 @@ package com.example.calendarapp.event;
 
 import java.time.ZonedDateTime;
 import java.util.Set;
-import java.util.logging.Logger;
 
 public class Meeting extends AbstractEvent{
-
-    Logger logger = Logger.getLogger(getClass().getName());
 
     private Set<String> participants;
     private String meetingRoom;
@@ -24,6 +21,11 @@ public class Meeting extends AbstractEvent{
 
     @Override
     public void print() {
-        logger.info("Meeting" + getTitle());
+        System.out.println("Meeting" + getTitle() + agenda);
+    }
+
+    @Override
+    public boolean support(EventType type) {
+        return type == EventType.MEETING;
     }
 }
