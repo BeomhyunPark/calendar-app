@@ -2,8 +2,11 @@ package com.example.calendarapp.event;
 
 import java.time.ZonedDateTime;
 import java.util.Set;
+import java.util.logging.Logger;
 
 public class Meeting extends AbstractEvent{
+
+    Logger logger = Logger.getLogger(getClass().getName());
 
     private Set<String> participants;
     private String meetingRoom;
@@ -21,6 +24,6 @@ public class Meeting extends AbstractEvent{
 
     @Override
     public void print() {
-        System.out.printf("[회의] %s : $s$n", getTitle(), agenda );
+        logger.info("Meeting" + getTitle());
     }
 }
