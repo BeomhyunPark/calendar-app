@@ -1,5 +1,6 @@
 package com.example.calendarapp.event;
 
+import com.example.calendarapp.event.update.AbstractAuditableEvent;
 import com.example.calendarapp.exception.InvalidEventException;
 
 import java.time.Duration;
@@ -37,6 +38,30 @@ public abstract class AbstractEvent implements Event {
 
         this.deletedYn = false;
     }
+
+    public void validateAndUpdate(AbstractAuditableEvent update) {
+        if (deletedYn == true) {
+            throw new InvalidEventException("Event has already been deleted");
+        }
+
+        defaultUpdate(update);
+        update(update);
+    }
+
+    private void defaultUpdate(AbstractAuditableEvent update) {
+        this.title = update.getTitle();
+        this.startAt = update.getStartAt();
+        this.endAt = update.getEndAt();
+        this.duration = Duration.between(this.startAt, this.endAt);
+        this.modifiedAt = ZonedDateTime.now();
+    }
+
+    protected abstract void update(AbstractAuditableEvent update);
+
+    public void delete(boolean deletedYn) {
+        this.deletedYn = deletedYn;
+    }
+
     public String getTitle() {
         return this.title;
     }
