@@ -17,7 +17,7 @@ public class OutOfOffice extends AbstractEvent {
 
     @Override
     public void print() {
-
+        System.out.printf("[출장] %s %n", getTitle());
     }
 
     @Override
