@@ -27,7 +27,6 @@ public class CalendarAppApplication implements CommandLineRunner {
         Schedule schedule = new Schedule();
         EventCsvReader csvReader = new EventCsvReader(new RawCsvReader());
 
-        // 설정 파일에서 읽은 경로 사용
         List<Meeting> meetings = csvReader.readMeetings(filePathProperties.getMeeting());
         meetings.forEach(schedule::add);
 

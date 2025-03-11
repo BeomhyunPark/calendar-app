@@ -4,7 +4,6 @@ import com.example.calendarapp.event.update.AbstractAuditableEvent;
 import com.example.calendarapp.exception.InvalidEventException;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.time.ZonedDateTime;
 
 public abstract class AbstractEvent implements Event {

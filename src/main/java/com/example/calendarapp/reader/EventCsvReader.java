@@ -4,12 +4,8 @@ import com.example.calendarapp.event.Meeting;
 import com.example.calendarapp.event.NoDisturbance;
 import com.example.calendarapp.event.OutOfOffice;
 import com.example.calendarapp.event.Todo;
-import com.opencsv.CSVReader;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -80,7 +76,7 @@ public class EventCsvReader {
 
             String[] each = read.get(i);
 
-            // Meeting 으로 변환 부분
+            // Disturbance 로 변환 부분
             result.add(
                     new NoDisturbance(
                             Integer.parseInt(each[0]),
@@ -113,7 +109,7 @@ public class EventCsvReader {
 
             String[] each = read.get(i);
 
-            // Meeting 으로 변환 부분
+            // Out of Office 로 변환 부분
             result.add(
                     new OutOfOffice(
                             Integer.parseInt(each[0]),
@@ -146,7 +142,7 @@ public class EventCsvReader {
 
             String[] each = read.get(i);
 
-            // Meeting 으로 변환 부분
+            //  투두로 변환 부분
             result.add(
                     new Todo(
                             Integer.parseInt(each[0]),
