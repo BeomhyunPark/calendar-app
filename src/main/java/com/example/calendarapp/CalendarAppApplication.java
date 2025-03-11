@@ -1,43 +1,43 @@
 package com.example.calendarapp;
 
+import com.example.calendarapp.config.FilePathProperties;
 import com.example.calendarapp.event.*;
-import com.example.calendarapp.event.update.AbstractAuditableEvent;
-import com.example.calendarapp.event.update.UpdateMeeting;
 import com.example.calendarapp.reader.EventCsvReader;
 import com.example.calendarapp.reader.RawCsvReader;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @SpringBootApplication
-public class CalendarAppApplication {
+@RequiredArgsConstructor
+public class CalendarAppApplication implements CommandLineRunner {
 
-    public static void main(String[] args) throws IOException {
+    private final FilePathProperties filePathProperties;
+
+    public static void main(String[] args) {
+        SpringApplication.run(CalendarAppApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws IOException {
         Schedule schedule = new Schedule();
-
         EventCsvReader csvReader = new EventCsvReader(new RawCsvReader());
-        String meetingCsvPath = "/data/meeting.csv";
-        String noDisturbanceCsvPath = "/data/no_disturbance.csv";
-        String outOfOfficeCsvPath = "/data/out_of_office.csv";
-        String toDoCsvPath = "/data/to_do.csv";
 
-
-        List<Meeting> meetings = csvReader.readMeetings(meetingCsvPath);
+        // 설정 파일에서 읽은 경로 사용
+        List<Meeting> meetings = csvReader.readMeetings(filePathProperties.getMeeting());
         meetings.forEach(schedule::add);
 
-        List<NoDisturbance> noDisturbances = csvReader.readNoDisturbance(noDisturbanceCsvPath);
+        List<NoDisturbance> noDisturbances = csvReader.readNoDisturbance(filePathProperties.getNoDisturbance());
         noDisturbances.forEach(schedule::add);
 
-        List<OutOfOffice> outOfOffices = csvReader.readOutOfOffice(outOfOfficeCsvPath);
+        List<OutOfOffice> outOfOffices = csvReader.readOutOfOffice(filePathProperties.getOutOfOffice());
         outOfOffices.forEach(schedule::add);
 
-        List<Todo> todos = csvReader.readTodo(toDoCsvPath);
+        List<Todo> todos = csvReader.readTodo(filePathProperties.getTodo());
         todos.forEach(schedule::add);
 
         schedule.printAll();
